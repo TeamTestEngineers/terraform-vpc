@@ -1,0 +1,39 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_internet_gateway.tfb" [label = "aws_internet_gateway.tfb", shape = "box"]
+		"[root] aws_vpc.tfb" [label = "aws_vpc.tfb", shape = "box"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] aws_internet_gateway.tfb" -> "[root] aws_vpc.tfb"
+		"[root] aws_vpc.tfb" -> "[root] provider.aws"
+		"[root] aws_vpc.tfb" -> "[root] var.cidr"
+		"[root] aws_vpc.tfb" -> "[root] var.enable_dns_hostnames"
+		"[root] aws_vpc.tfb" -> "[root] var.name"
+		"[root] root" -> "[root] aws_internet_gateway.tfb"
+		"[root] root" -> "[root] var.public_subnet"
+	}
+}
+
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_internet_gateway.tfb" [label = "aws_internet_gateway.tfb", shape = "box"]
+		"[root] aws_route.internet_access" [label = "aws_route.internet_access", shape = "box"]
+		"[root] aws_subnet.public" [label = "aws_subnet.public", shape = "box"]
+		"[root] aws_vpc.tfb" [label = "aws_vpc.tfb", shape = "box"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] aws_internet_gateway.tfb" -> "[root] aws_vpc.tfb"
+		"[root] aws_route.internet_access" -> "[root] aws_internet_gateway.tfb"
+		"[root] aws_subnet.public" -> "[root] aws_vpc.tfb"
+		"[root] aws_subnet.public" -> "[root] var.public_subnet"
+		"[root] aws_vpc.tfb" -> "[root] provider.aws"
+		"[root] aws_vpc.tfb" -> "[root] var.cidr"
+		"[root] aws_vpc.tfb" -> "[root] var.enable_dns_hostnames"
+		"[root] aws_vpc.tfb" -> "[root] var.name"
+		"[root] root" -> "[root] aws_route.internet_access"
+		"[root] root" -> "[root] aws_subnet.public"
+	}
+}
+
